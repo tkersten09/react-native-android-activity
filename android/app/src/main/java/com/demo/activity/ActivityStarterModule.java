@@ -1,8 +1,13 @@
 package com.demo.activity;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RecentTaskInfo;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
+import android.view.View;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -19,6 +24,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -89,6 +95,32 @@ class ActivityStarterModule extends ReactContextBaseJavaModule {
         if (activity != null) {
             promise.resolve(activity.getClass().getSimpleName());
         }
+    }
+
+    @ReactMethod
+    void getChatHeadService() {
+        Activity activity = getCurrentActivity();
+        MainApplication application = (MainApplication) activity.getApplication();
+        ReactNativeHost reactNativeHost = application.getReactNativeHost();
+        ReactInstanceManager reactInstanceManager = reactNativeHost.getReactInstanceManager();
+        ReactContext reactContext = reactInstanceManager.getCurrentReactContext();
+        reactContext.startService(new Intent(activity, ChatHeadService.class));
+
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                String d;
+//                final ActivityManager am = (ActivityManager) reactContext.getSystemService(Context.ACTIVITY_SERVICE);
+//                am.
+//                d = (String) am.RecentTaskInfo.description;
+////                ComponentName topActivity = am.RecentTaskInfo.topActivity;
+////                rm.Recent
+//                Objects.requireNonNull(callback).invoke(d);
+//            }
+//        }, 60000);
+////        activity.finish();
+
     }
 
     @ReactMethod

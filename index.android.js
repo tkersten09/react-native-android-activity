@@ -56,6 +56,10 @@ export default class ActivityDemoComponent extends Component {
             title='Get activity name'
           />
           <Button
+            onPress={() => activityStarter.getChatHeadService()}
+            title='Get Chat Head Service online'
+          />
+          <Button
             onPress={async () => {
               try {
                 var name = await activityStarter.getActivityNameAsPromise();
